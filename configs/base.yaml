@@ -1,0 +1,74 @@
+run_name: base
+seed: 42
+work_dir: D:/BaoYen_work
+checkpoint_dir: D:/BaoYen_work/checkpoints
+report_dir: reports
+figure_dir: reports/figures
+
+data:
+  root: D:/BaoYen_work/data
+  dataset: fracatlas
+  max_samples: null
+  val_max_samples: 200
+  num_workers: 0
+  answer_vocab_size: 500
+
+model:
+  d_model: 768
+  visual_backbone: biomedclip
+  image_size: 224
+  visual_lora_rank: 4
+  grad_checkpoint: true
+  use_visual_prompt: true
+  use_latent_prompt: true
+  use_lens: true
+  use_textual_prompt: true
+  prompt_kind: contour
+  n_masks_max: 3
+  n_query: 32
+  n_latent: 32
+  qformer_layers: 2
+  lens_layers: 2
+  lens_shuffle_r: 2
+  alpha: 1.0
+  theta: 0.1
+  beta: 0.1
+  eta: 0.01
+  lam: 0.1
+  contrastive_mode: infonce
+  type_loss_weight: 0.1
+  max_question_tokens: 48
+  max_answer_tokens: 32
+  max_new_tokens: 32
+  llm_name: Qwen/Qwen2.5-0.5B-Instruct
+  llm_dtype: bfloat16
+  llm_lora_r: 8
+  llm_lora_alpha: 16
+  llm_lora_targets: [q_proj, v_proj]
+  llm_grad_checkpoint: true
+  use_llm: true
+  prior_labels: [hand, leg, hip, shoulder, mixed, fracture, no fracture, hardware, normal]
+  sam:
+    model_id: wanglab/medsam-vit-base
+    sam_med2d_ckpt: D:/BaoYen_work/hf_cache/sam-med2d_b.pth
+    default_prompt: grid_boxes
+    grid: 2
+    cache_dir: D:/BaoYen_work/cache_masks
+    enabled: true
+
+train:
+  stage: 3
+  epochs: 5
+  batch_size: 2
+  grad_accum: 8
+  lr: 1.0e-4
+  weight_decay: 0.05
+  warmup_ratio: 0.05
+  amp: true
+  amp_dtype: bfloat16
+  max_grad_norm: 1.0
+  eval_every_epoch: true
+  eval_max_samples: 200
+  log_every: 10
+  select_metric: overall_acc
+  save_optimizer: false

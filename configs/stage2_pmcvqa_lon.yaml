@@ -1,0 +1,15 @@
+_base_: base.yaml
+run_name: stage2_pmcvqa_lon
+init_from: D:/BaoYen_work/checkpoints/stage1_roco_full/best.pt
+data:
+  dataset: pmc_vqa
+  train_split: train_lon
+  max_samples: null
+  val_max_samples: 300
+  answer_vocab_size: 500
+train:
+  stage: 2
+  epochs: 1
+  batch_size: 4
+  grad_accum: 4
+  lr: 1.0e-4

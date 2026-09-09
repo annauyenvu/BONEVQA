@@ -1,0 +1,16 @@
+﻿_base_: base.yaml
+run_name: stage3_vqa_rad
+init_from: D:/BaoYen_work/checkpoints/stage2_pmcvqa/best.pt
+data:
+  dataset: vqa_rad
+  max_samples: null
+  val_max_samples: 451
+  answer_vocab_size: 500
+train:
+  stage: 3
+  epochs: 5
+  batch_size: 4
+  grad_accum: 4
+  lr: 5.0e-5
+  eval_max_samples: 451
+

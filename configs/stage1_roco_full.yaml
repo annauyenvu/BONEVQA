@@ -1,0 +1,19 @@
+_base_: base.yaml
+run_name: stage1_roco_full
+data:
+  dataset: roco
+  max_samples: 19989
+  val_max_samples: 300
+model:
+  use_latent_prompt: false
+  contrastive_mode: dcl
+  lam: 0.5
+  sam:
+    enabled: false
+train:
+  stage: 1
+  epochs: 1
+  batch_size: 8
+  grad_accum: 2
+  lr: 1.0e-4
+  select_metric: val_loss

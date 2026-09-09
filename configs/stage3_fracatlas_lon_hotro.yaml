@@ -1,0 +1,21 @@
+_base_: base.yaml
+run_name: stage3_fracatlas_lon_hotro
+init_from: D:/BaoYen_work/checkpoints/stage2_pmcvqa_lon/best.pt
+data:
+  dataset: fracatlas
+  max_samples: null
+  val_max_samples: 400
+  answer_vocab_size: 300
+  loader_kwargs:
+    with_masks: false
+    with_boxes: true
+model:
+  use_region_in_prompt: false
+  prompt_kind: contour
+train:
+  stage: 3
+  epochs: 3
+  batch_size: 4
+  grad_accum: 4
+  lr: 1.0e-4
+  eval_max_samples: 400

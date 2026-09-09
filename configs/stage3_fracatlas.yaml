@@ -1,0 +1,18 @@
+﻿_base_: base.yaml
+run_name: stage3_fracatlas
+init_from: D:/BaoYen_work/checkpoints/stage2_pmcvqa/best.pt
+data:
+  dataset: fracatlas
+  max_samples: 6000
+  val_max_samples: 300
+  answer_vocab_size: 300
+model:
+  prompt_kind: contour
+train:
+  stage: 3
+  epochs: 2
+  batch_size: 4
+  grad_accum: 2
+  lr: 1.0e-4
+  eval_max_samples: 300
+
